@@ -7,11 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+psycopg2-binary = "^2.9.13"
 
 
 [tool.poetry.group.framework.dependencies]
 django = "^6.1.1"
 djangorestframework = "^3.18.1"
+
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.2.3"
 
 [build-system]
 requires = ["poetry-core"]
