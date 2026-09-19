@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fitnesassistant"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.framework.dependencies]
+django = "^6.1.1"
+djangorestframework = "^3.18.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
