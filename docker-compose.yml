@@ -1,0 +1,31 @@
+services:
+  web:
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+      - static_volume:/code/static
+    command: ["bash", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:16
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  postgres_data:
+  static_volume:
