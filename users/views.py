@@ -9,3 +9,7 @@ from users.serializers import CustomUserSerializer
 class UserListCreateAPIView(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+class UserRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
