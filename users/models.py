@@ -27,9 +27,22 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+
+    class Sex(models.TextChoices):
+        MALE = "male", "Male"
+        FEMALE = "female", "Female"
+
     username = None
     phone_number = models.CharField(max_length=15, verbose_name="Номер телефона", blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
+
+    age = models.PositiveIntegerField(blank=True, null=True)
+    weight = models.PositiveIntegerField(blank=True, null=True)
+    height = models.PositiveIntegerField(blank=True, null=True)
+    neck = models.PositiveIntegerField(blank=True, null=True)
+    waist = models.PositiveIntegerField(blank=True, null=True)
+    sex = models.CharField(max_length=6, choices=Sex.choices)
+    hip = models.PositiveIntegerField(blank=True, null=True)
 
     objects = CustomUserManager()
 
