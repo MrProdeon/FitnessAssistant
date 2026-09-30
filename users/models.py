@@ -32,17 +32,26 @@ class CustomUser(AbstractUser):
         MALE = "male", "Male"
         FEMALE = "female", "Female"
 
+    class WeightClass(models.TextChoices):
+        SLENDER = "slender", "Slender"
+        EXCESS_WEIGHT = "excess weight", "Excess weight"
+        OBESITY = "obesity", "Obesity"
+
     username = None
     phone_number = models.CharField(max_length=15, verbose_name="Номер телефона", blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
 
     age = models.PositiveIntegerField(blank=True, null=True)
-    weight = models.PositiveIntegerField(blank=True, null=True)
-    height = models.PositiveIntegerField(blank=True, null=True)
-    neck = models.PositiveIntegerField(blank=True, null=True)
-    waist = models.PositiveIntegerField(blank=True, null=True)
+    weight = models.FloatField(blank=True, null=True)
+    height = models.FloatField(blank=True, null=True)
+    neck = models.FloatField(blank=True, null=True)
+    waist = models.FloatField(blank=True, null=True)
     sex = models.CharField(max_length=6, choices=Sex.choices)
-    hip = models.PositiveIntegerField(blank=True, null=True)
+    hip = models.FloatField(blank=True, null=True)
+
+    body_fat = models.FloatField(blank=True, null=True)
+    lean_body_mass = models.FloatField(blank=True, null=True)
+    weight_class = models.CharField(blank=True, null=True, choices=WeightClass.choices)
 
     objects = CustomUserManager()
 
