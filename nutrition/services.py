@@ -12,6 +12,48 @@ def calculate_bmr(user: CustomUser):
     #Добавить запись в бд
     return bmr
 
+def calculate_tef(bmr : float | int, ) -> int | float:
+    """
+    Рассчет калорий, которые уходят на перевание пищи. Учитываем консервативно всего 10%.
+    На деле может разниться от 10% до 20% в зависимости от количества потребления белка и клетчатки
+    :param bmr: базовый обмен веществ пользователя
+    :return: траты на переваривение пищи
+    """
+    return bmr * 0.10
+
+def calculate_calories_per_1000_steps(user : CustomUser) -> int | float:
+    """
+    Примерный расчет трат калорий на 1000 шагов
+    :param user: Пользователь
+    :return: количество калорий, потраченных на 1000 шагов
+    """
+    return user.weight * 0.5
+
+def calculate_calories_by_steps(user : CustomUser, steps : int) -> int | float:
+    """
+    Рассчет калорий, потраченных на шаги
+    :param user: Пользователь
+    :param steps: Количество пройденных шагов
+    :return: количество калорий, потраченных на указанное количество шагов
+    """
+    return calculate_calories_per_1000_steps(user) * (steps / 1000)
+
+def calculate_neat(user: CustomUser, steps: int | float) -> int | float:
+    """
+    Рассчет трат калорий в день без тренировки. Учитывается базовый обмен веществ, шаги и траты на переваривание пищи.
+    :param user: Пользователь
+    :param steps: Количество шагов в день
+    :return: Траты калорий в день без тренировки
+    """
+    bmr = calculate_bmr(user)
+    steps = calculate_calories_by_steps(user, steps)
+    tef = calculate_tef(bmr)
+
+    return bmr + steps + tef
+
+def calculate_eat():
+    pass
+
 def calculate_calorie_norm(user: CustomUser):
     pass
 
