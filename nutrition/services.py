@@ -40,3 +40,12 @@ def calculate_fat_norm(calorie_norm: float) -> float:
     # Необходимо 2 грамма омега 3 в день, остальное возьмется из подкожного жира
     fat_norm = calorie_norm * 0.3 / 9
     return fat_norm
+
+def calculate_nutrition_summary(user: CustomUser):
+    calorie_norm = calculate_calorie_norm(user)
+    return {
+        "bmr" : calculate_bmr(user),
+        "calorie_norm" : calorie_norm,
+        "protein_norm" : calculate_protein_norm(user),
+        "fat_norm" : calculate_fat_norm(calorie_norm)
+    }
