@@ -61,7 +61,7 @@ def calculate_train_calorie(user: CustomUser, train_time : int) -> int | float:
     if user.fitness_level == CustomUser.FitnessLevel.LOW:
         coefficient = 0.05
     elif user.fitness_level == CustomUser.FitnessLevel.MEDIUM:
-        coefficient = 0.75
+        coefficient = 0.075
     else:
         coefficient = 0.1
 
@@ -82,8 +82,31 @@ def calculate_eat(user: CustomUser, steps, train_time):
     eat = neat + train_calories
     return eat
 
-def calculate_calorie_norm(user: CustomUser):
-    pass
+def calculate_calorie_norm_with_deficit(user: CustomUser, steps : int, train_time : int, goal : str = "medium"):
+    """
+    Рассчет количества калорий в день, которое необходимо съесть для дефицита
+    :param user: Пользователь
+    :param steps: количество шагов
+    :param train_time: время тренировки
+    :param goal: таргет похудения (насколько быстро худеем)
+    :return: количество калорий в день для похудения
+    """
+    goal_presets = {"low" : 0.10, "medium" : 0.15, "agressive" : 0.20}
+    goal_percent = goal_presets.get(goal, 0.15)
+
+
+    if train_time > 0:
+        calories = calculate_eat(user, steps, train_time)
+    else:
+        calories = calculate_neat(user, steps)
+
+    calorie_norm = calories * (1 - goal_percent)
+
+    bmr = calculate_bmr(user)
+    min_safe_caloeries = bmr * 1.2
+
+    return max(calorie_norm, min_safe_caloeries)
+
 
 def calculate_protein_norm(user: CustomUser):
     """
@@ -111,11 +134,11 @@ def calculate_fat_norm(calorie_norm: float) -> float:
     fat_norm = calorie_norm * 0.3 / 9
     return fat_norm
 
-def calculate_nutrition_summary(user: CustomUser):
-    calorie_norm = calculate_calorie_norm(user)
+def calculate_nutrition_summary(user: CustomUser, steps, train_time, goal="medium"):
+    calorie_norm = calculate_calorie_norm(user, steps, train_time)
     return {
         "bmr" : calculate_bmr(user),
-        "calorie_norm" : calorie_norm,
+        "calorie_norm_with_deficit" : calorie_norm,
         "protein_norm" : calculate_protein_norm(user),
         "fat_norm" : calculate_fat_norm(calorie_norm)
     }
