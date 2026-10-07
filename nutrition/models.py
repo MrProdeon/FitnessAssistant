@@ -11,8 +11,8 @@ class NutritionShapshot(models.Model):
 
     added_at = models.DateTimeField(auto_now_add=True)
 
-    basal_metabolic_rate = models.FloatField()
+    bmr = models.FloatField()
     protein_norm = models.FloatField()
     fat_norm = models.FloatField()
-    calorie_norm = models.FloatField()
+    calorie_norm_with_deficit = models.FloatField()
 
