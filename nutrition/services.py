@@ -1,3 +1,4 @@
+from nutrition.models import NutritionShapshot
 from users.models import CustomUser
 
 
@@ -9,7 +10,6 @@ def calculate_bmr(user: CustomUser):
     """
     bmr = 370 + (21.6 * user.lean_body_mass)
 
-    #Добавить запись в бд
     return bmr
 
 def calculate_tef(bmr : float | int, ) -> int | float:
@@ -121,7 +121,6 @@ def calculate_protein_norm(user: CustomUser):
     else:
         protein_norm = 2.2 * user.lean_body_mass
 
-    #Добавить запись в бд
     return protein_norm
 
 def calculate_fat_norm(calorie_norm: float) -> float:
@@ -135,10 +134,12 @@ def calculate_fat_norm(calorie_norm: float) -> float:
     return fat_norm
 
 def calculate_nutrition_summary(user: CustomUser, steps, train_time, goal="medium"):
-    calorie_norm = calculate_calorie_norm(user, steps, train_time)
-    return {
+    calorie_norm = calculate_calorie_norm_with_deficit(user, steps, train_time)
+    result = {
         "bmr" : calculate_bmr(user),
         "calorie_norm_with_deficit" : calorie_norm,
         "protein_norm" : calculate_protein_norm(user),
         "fat_norm" : calculate_fat_norm(calorie_norm)
     }
+    NutritionShapshot.objects.create(user=user, **result)
+    return result
