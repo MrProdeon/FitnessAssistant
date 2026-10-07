@@ -51,6 +51,24 @@ def calculate_neat(user: CustomUser, steps: int | float) -> int | float:
 
     return bmr + steps + tef
 
+def calculate_train_calorie(user: CustomUser, train_time : int) -> int | float:
+    """
+    Рассчет трат калорий за тренировку, с учётом уровня физическое подготовки
+    :param user: Пользователь
+    :param train_time: Время тренировки
+    :return: Калории, потраченные за тренировку
+    """
+    if user.fitness_level == CustomUser.FitnessLevel.LOW:
+        coefficient = 0.05
+    elif user.fitness_level == CustomUser.FitnessLevel.MEDIUM:
+        coefficient = 0.75
+    else:
+        coefficient = 0.1
+
+    train_calories = coefficient * user.weight * train_time
+
+    return train_calories
+
 def calculate_eat():
     pass
 
