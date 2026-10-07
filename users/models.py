@@ -37,6 +37,11 @@ class CustomUser(AbstractUser):
         EXCESS_WEIGHT = "excess weight", "Excess weight"
         OBESITY = "obesity", "Obesity"
 
+    class FitnessLevel(models.TextChoices):
+        LOW = "low", "Low"
+        MEDIUM = "medium", "Medium"
+        HIGH = "high", "High"
+
     username = None
     phone_number = models.CharField(max_length=15, verbose_name="Номер телефона", blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
@@ -52,6 +57,7 @@ class CustomUser(AbstractUser):
     body_fat = models.FloatField(blank=True, null=True)
     lean_body_mass = models.FloatField(blank=True, null=True)
     weight_class = models.CharField(blank=True, null=True, choices=WeightClass.choices)
+    fitness_level = models.CharField(blank=True, null=True, choices=FitnessLevel.choices)
 
     objects = CustomUserManager()
 
