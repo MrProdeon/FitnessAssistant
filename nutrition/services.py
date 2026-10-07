@@ -69,8 +69,18 @@ def calculate_train_calorie(user: CustomUser, train_time : int) -> int | float:
 
     return train_calories
 
-def calculate_eat():
-    pass
+def calculate_eat(user: CustomUser, steps, train_time):
+    """
+    Расчет нормы калорий в день с тренировкой. К расчету NEAT просто прибавляются траты за тренировку.
+    :param user: Пользователь
+    :param steps: Количество шагов в день
+    :param train_time: Время тренировки
+    :return: калории, потраченные в день с тренировкой
+    """
+    neat = calculate_neat(user, steps)
+    train_calories = calculate_train_calorie(user, train_time)
+    eat = neat + train_calories
+    return eat
 
 def calculate_calorie_norm(user: CustomUser):
     pass
