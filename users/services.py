@@ -46,9 +46,6 @@ def calculate_body_fat(user: CustomUser) -> float:
 
     body_fat = 495 / inner - 450
 
-    user.body_fat = body_fat
-    user.save(update_fields=["body_fat"])
-
     return body_fat
 
 
@@ -61,9 +58,6 @@ def get_lean_body_mass(user: CustomUser) -> float:
     :return: обезжиренная масса тела
     """
     lean_body_mass = user.weight * (1 - user.body_fat / 100)
-    user.lean_body_mass = lean_body_mass
-    user.save(update_fields = ["lean_body_mass"])
-
 
     return lean_body_mass
 
