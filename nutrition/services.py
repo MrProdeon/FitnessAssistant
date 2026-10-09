@@ -134,7 +134,7 @@ def calculate_fat_norm(calorie_norm: float) -> float:
     return fat_norm
 
 def calculate_nutrition_summary(user: CustomUser, steps, train_time, goal="medium"):
-    calorie_norm = calculate_calorie_norm_with_deficit(user, steps, train_time)
+    calorie_norm = calculate_calorie_norm_with_deficit(user, steps, train_time, goal)
     result = {
         "bmr" : calculate_bmr(user),
         "calorie_norm_with_deficit" : calorie_norm,
