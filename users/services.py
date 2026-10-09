@@ -94,5 +94,7 @@ def get_weight_class(user: CustomUser) -> str:
         elif body_fat >= 35:
             weight_class = "ожирение"
 
+    return weight_class
+
 
 
