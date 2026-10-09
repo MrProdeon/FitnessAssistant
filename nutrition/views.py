@@ -3,11 +3,13 @@ from rest_framework import generics, views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
 from nutrition.serializers import NutritionShapshotRequestSerializer
 
-from nutrition.services import calculate_nutrition_summary
+from nutrition.services import calculate_nutrition_summary, calculate_bmr
+
 
 # Create your views here.
 
@@ -25,3 +27,12 @@ class NutritionSnapshotCreateAPIView(views.APIView):
                                                         goal=validated["goal"])
 
         return Response(nutrition_summary, status=status.HTTP_201_CREATED)
+
+class CalculateBMRAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        bmr = calculate_bmr(user)
+
+        return Response({"bmr" : bmr})
