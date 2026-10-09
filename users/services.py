@@ -51,17 +51,31 @@ def calculate_body_fat(user: CustomUser) -> float:
 
 #Lean Body Mass
 
+def validate_lean_body_mass_fields(user: CustomUser) -> None:
+    required_fields = "weight", "body_fat"
+    missing = [f for f in required_fields if getattr(user, f, None) in (None, "")]
+    if missing:
+        raise ValidationError(f"Пропущены обязательные поля: {', '.join(missing)}")
+
 def get_lean_body_mass(user: CustomUser) -> float:
     """
     Рассчет обезжиренной массы тела, исходя из веса и процента жира пользователя. Сохранение в модель пользователя.
     :param user: Пользователь
     :return: обезжиренная масса тела
     """
+    validate_lean_body_mass_fields(user)
     lean_body_mass = user.weight * (1 - user.body_fat / 100)
 
     return lean_body_mass
 
 # weight class
+
+def validate_weight_class(user: CustomUser) -> None:
+    required_fields = "sex", "body_fat"
+    missing = [f for f in required_fields if getattr(user, f, None) in (None, "")]
+    if missing:
+        raise ValidationError(f"Пропущены обязательные поля: {', '.join(missing)}")
+
 
 def get_weight_class(user: CustomUser) -> str:
     """
@@ -69,6 +83,7 @@ def get_weight_class(user: CustomUser) -> str:
     :param user: Пользователь
     :return: весовая категория пользователя
     """
+    validate_weight_class(user)
     body_fat, sex = user.body_fat, user.sex
 
 
