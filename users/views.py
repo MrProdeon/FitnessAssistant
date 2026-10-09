@@ -45,7 +45,7 @@ class BodyFatCalculateAPIView(views.APIView):
         user = request.user
         try:
             body_fat = calculate_body_fat(user)
-        except ValueError as e:
+        except ValidationError as e:
             raise ValidationError(str(e))
 
         user.body_fat = body_fat
@@ -60,7 +60,7 @@ class LBMCalculateAPIView(views.APIView):
         user = request.user
         try:
             lbm = get_lean_body_mass(user)
-        except ValueError as e:
+        except ValidationError as e:
             raise ValidationError(str(e))
 
         user.lean_body_mass = lbm
@@ -73,7 +73,10 @@ class WeightClassAPIView(views.APIView):
 
     def post(self, request):
         user = request.user
-        weight_class = get_weight_class(user)
+        try:
+            weight_class = get_weight_class(user)
+        except ValidationError as e:
+            raise ValidationError(str(e))
 
         user.weight_class = weight_class
         user.save(update_fields=["weight_class"])
