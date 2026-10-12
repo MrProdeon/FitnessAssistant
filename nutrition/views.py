@@ -6,9 +6,9 @@ from rest_framework import status
 from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
-from nutrition.serializers import NutritionShapshotRequestSerializer
+from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer
 
-from nutrition.services import calculate_nutrition_summary, calculate_bmr
+from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef
 
 
 # Create your views here.
@@ -36,3 +36,16 @@ class CalculateBMRAPIView(views.APIView):
         bmr = calculate_bmr(user)
 
         return Response({"bmr" : bmr})
+
+class CalculateTEFAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def __post__(self, request):
+        input_serializer = TefRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        validated = input_serializer.validated_data
+        bmr = validated.get("bmr", 0)
+
+        tef = calculate_tef(bmr)
+
+        return Response({"tef" : tef})
