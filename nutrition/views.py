@@ -11,7 +11,7 @@ from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequest
     StepsRequestSerializer, TrainCaloriesRequestSerializer, EatRequestSerializer
 
 from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps, \
-    calculate_train_calorie, calculate_neat, calculate_eat
+    calculate_train_calorie, calculate_neat, calculate_eat, calculate_calorie_norm_with_deficit
 
 
 # Create your views here.
@@ -105,3 +105,18 @@ class CalculateEatAPIView(views.APIView):
                             validated["train_time"])
 
         return Response({"eat" : eat})
+
+class CalculateCalorieNormAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        input_serializer = NutritionShapshotRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        validated = input_serializer.validated_data
+        calorie_norm_with_deficit = calculate_calorie_norm_with_deficit(user,
+                                                                        steps=validated["steps"],
+                                                                        train_time=validated["train_time"],
+                                                                        goal=validated["goal"])
+
+        return Response({"calorie_norm_with_deficit" : calorie_norm_with_deficit})
