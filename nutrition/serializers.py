@@ -19,3 +19,6 @@ class TrainCaloriesRequestSerializer(serializers.Serializer):
 class EatRequestSerializer(serializers.Serializer):
     steps = serializers.IntegerField(min_value=0)
     train_time = serializers.IntegerField(min_value=0)
+
+class FatNormRequestSerializer(serializers.Serializer):
+    calorie_norm = serializers.IntegerField(min_value=0)
