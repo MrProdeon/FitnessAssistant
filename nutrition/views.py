@@ -8,10 +8,11 @@ from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
 from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer, \
-    StepsRequestSerializer, TrainCaloriesRequestSerializer, EatRequestSerializer
+    StepsRequestSerializer, TrainCaloriesRequestSerializer, EatRequestSerializer, FatNormRequestSerializer
 
 from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps, \
-    calculate_train_calorie, calculate_neat, calculate_eat, calculate_calorie_norm_with_deficit
+    calculate_train_calorie, calculate_neat, calculate_eat, calculate_calorie_norm_with_deficit, calculate_protein_norm, \
+    calculate_fat_norm
 
 
 # Create your views here.
@@ -120,3 +121,21 @@ class CalculateCalorieNormAPIView(views.APIView):
                                                                         goal=validated["goal"])
 
         return Response({"calorie_norm_with_deficit" : calorie_norm_with_deficit})
+
+class CalculateProteintNormAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        protein_norm = calculate_protein_norm(request.user)
+        return Response({"protein_norm" : protein_norm})
+
+class CalculateFatNormAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        input_serializer = FatNormRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        fat_norm = calculate_fat_norm(input_serializer.validated_data["calorie_norm"])
+
+        return Response({"fat_norm" : fat_norm})
+
