@@ -40,7 +40,7 @@ class CalculateBMRAPIView(views.APIView):
 class CalculateTEFAPIView(views.APIView):
     permission_classes = [IsAuthenticated]
 
-    def __post__(self, request):
+    def post(self, request):
         input_serializer = TefRequestSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True)
         validated = input_serializer.validated_data
