@@ -7,7 +7,7 @@ from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
 from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer, \
-    StepsCaloriesRequestSerializer, TrainCaloriesRequestSerializer
+    StepsRequestSerializer, TrainCaloriesRequestSerializer
 
 from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps, \
     calculate_train_calorie
@@ -57,7 +57,7 @@ class CalculateStepsCaloriesAPIView(views.APIView):
 
     def post(self, request):
         user = request.user
-        input_serializer = StepsCaloriesRequestSerializer(data=request.data)
+        input_serializer = StepsRequestSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True)
         steps = input_serializer.validated_data["steps"]
 
