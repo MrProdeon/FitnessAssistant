@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.context_processors import request
 from rest_framework import generics, views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -10,7 +11,7 @@ from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequest
     StepsRequestSerializer, TrainCaloriesRequestSerializer
 
 from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps, \
-    calculate_train_calorie
+    calculate_train_calorie, calculate_neat
 
 
 # Create your views here.
@@ -77,3 +78,16 @@ class CalculateTrainCaloriesAPIView(views.APIView):
         train_calories = calculate_train_calorie(user, train_time)
 
         return Response({"train_calories" : train_calories})
+
+class CalculateNeatAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        input_serializer = StepsRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        steps = input_serializer.validated_data.get("steps", 0)
+
+        neat = calculate_neat(user, steps)
+
+        return Response({"neat" : neat})
