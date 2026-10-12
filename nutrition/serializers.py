@@ -12,3 +12,6 @@ class TefRequestSerializer(serializers.Serializer):
 
 class StepsCaloriesRequestSerializer(serializers.Serializer):
     steps = serializers.IntegerField(min_value=0)
+
+class TrainCaloriesRequestSerializer(serializers.Serializer):
+    train_time = serializers.IntegerField(min_value=0)
