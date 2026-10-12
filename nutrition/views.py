@@ -8,10 +8,10 @@ from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
 from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer, \
-    StepsRequestSerializer, TrainCaloriesRequestSerializer
+    StepsRequestSerializer, TrainCaloriesRequestSerializer, EatRequestSerializer
 
 from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps, \
-    calculate_train_calorie, calculate_neat
+    calculate_train_calorie, calculate_neat, calculate_eat
 
 
 # Create your views here.
@@ -91,3 +91,17 @@ class CalculateNeatAPIView(views.APIView):
         neat = calculate_neat(user, steps)
 
         return Response({"neat" : neat})
+
+class CalculateEatAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        input_serializer = EatRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        validated = input_serializer.validated_data
+        eat = calculate_eat(user,
+                            validated["steps"],
+                            validated["train_time"])
+
+        return Response({"eat" : eat})

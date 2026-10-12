@@ -15,3 +15,7 @@ class StepsRequestSerializer(serializers.Serializer):
 
 class TrainCaloriesRequestSerializer(serializers.Serializer):
     train_time = serializers.IntegerField(min_value=0)
+
+class EatRequestSerializer(serializers.Serializer):
+    steps = serializers.IntegerField(min_value=0)
+    train_time = serializers.IntegerField(min_value=0)

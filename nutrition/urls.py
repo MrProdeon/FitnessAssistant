@@ -2,7 +2,7 @@ from django.urls import path, include
 
 import nutrition.apps
 from nutrition.views import NutritionSnapshotCreateAPIView, CalculateBMRAPIView, CalculateTEFAPIView, \
-    CalculateStepsCaloriesAPIView, CalculateTrainCaloriesAPIView, CalculateNeatAPIView
+    CalculateStepsCaloriesAPIView, CalculateTrainCaloriesAPIView, CalculateNeatAPIView, CalculateEatAPIView
 
 app_name = nutrition.apps.NutritionsConfig.name
 
@@ -12,7 +12,9 @@ urlpatterns = [
     path("calculate_tef/", CalculateTEFAPIView.as_view(), name="calculate-tef"),
     path("calculate_steps_calories/", CalculateStepsCaloriesAPIView.as_view(), name="calculate-stepscalories"),
     path("calculate_train_calories/", CalculateTrainCaloriesAPIView.as_view(), name="calculate-traincalories"),
-    path("calculate_neat/", CalculateNeatAPIView.as_view(), name="calculate-neat")
+    path("calculate_neat/", CalculateNeatAPIView.as_view(), name="calculate-neat"),
+    path("calculate_eat/", CalculateEatAPIView.as_view(), name="calculate-eat")
+
 
 
 ]
