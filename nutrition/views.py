@@ -6,9 +6,10 @@ from rest_framework import status
 from rest_framework.status import HTTP_200_OK
 
 from nutrition.models import NutritionShapshot
-from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer
+from nutrition.serializers import NutritionShapshotRequestSerializer, TefRequestSerializer, \
+    StepsCaloriesRequestSerializer
 
-from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef
+from nutrition.services import calculate_nutrition_summary, calculate_bmr, calculate_tef, calculate_calories_by_steps
 
 
 # Create your views here.
@@ -49,3 +50,16 @@ class CalculateTEFAPIView(views.APIView):
         tef = calculate_tef(bmr)
 
         return Response({"tef" : tef})
+
+class CalculateStepsCaloriesAPIView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        input_serializer = StepsCaloriesRequestSerializer(data=request.data)
+        input_serializer.is_valid(raise_exception=True)
+        steps = input_serializer.validated_data["steps"]
+
+        steps_calories = calculate_calories_by_steps(user, steps)
+
+        return Response({"steps_calories" : steps_calories})

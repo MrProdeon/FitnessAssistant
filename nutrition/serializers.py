@@ -9,3 +9,6 @@ class NutritionShapshotRequestSerializer(serializers.Serializer):
 
 class TefRequestSerializer(serializers.Serializer):
     bmr = serializers.IntegerField(min_value=0)
+
+class StepsCaloriesRequestSerializer(serializers.Serializer):
+    steps = serializers.IntegerField(min_value=0)
