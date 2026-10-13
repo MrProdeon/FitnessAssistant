@@ -17,6 +17,12 @@ def validate_calculate_train_calorie(user: CustomUser):
     if missing:
         raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {", ".join(missing)}")
 
+def validate_calculate_protein_norm(user: CustomUser):
+    required_fields = "weight_class", "lean_body_mass"
+    missing = [m for m in required_fields if getattr(user, m, None) in (None, "")]
+    if missing:
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {", ".join(missing)}")
+
 def calculate_bmr(user: CustomUser):
     """
     Калькулятор базового обмена веществ. Для расчета используется обезжиренная масса тела пользователя.
@@ -133,6 +139,7 @@ def calculate_protein_norm(user: CustomUser):
     :param user: Пользователь
     :return: норма потребляемого белка в день
     """
+    validate_calculate_protein_norm(user)
     if user.weight_class == CustomUser.WeightClass.SLENDER:
         protein_norm = 4.4 * user.lean_body_mass
     elif user.weight_class == CustomUser.WeightClass.EXCESS_WEIGHT:
