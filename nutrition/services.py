@@ -7,6 +7,10 @@ def validate_calculate_bmr(user: CustomUser):
     if getattr(user, "lbm", None) in (None, ""):
         raise ValidationError(f"В профиле пользователя пропущены обязательные поля: lean_body_mass")
 
+def validate_calculate_calories_per_1000_steps(user: CustomUser):
+    if getattr(user, "weight", None) in (None, ""):
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: weight")
+
 def calculate_bmr(user: CustomUser):
     """
     Калькулятор базового обмена веществ. Для расчета используется обезжиренная масса тела пользователя.
@@ -33,6 +37,7 @@ def calculate_calories_per_1000_steps(user : CustomUser) -> int | float:
     :param user: Пользователь
     :return: количество калорий, потраченных на 1000 шагов
     """
+    validate_calculate_calories_per_1000_steps(user)
     return user.weight * 0.5
 
 def calculate_calories_by_steps(user : CustomUser, steps : int) -> int | float:
