@@ -11,6 +11,12 @@ def validate_calculate_calories_per_1000_steps(user: CustomUser):
     if getattr(user, "weight", None) in (None, ""):
         raise ValidationError(f"В профиле пользователя пропущены обязательные поля: weight")
 
+def validate_calculate_train_calorie(user: CustomUser):
+    required_fields = "fitness_level", "weight"
+    missing = [m for m in required_fields if getattr(user, m, None) in (None, "")]
+    if missing:
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {", ".join(missing)}")
+
 def calculate_bmr(user: CustomUser):
     """
     Калькулятор базового обмена веществ. Для расчета используется обезжиренная масса тела пользователя.
@@ -69,6 +75,7 @@ def calculate_train_calorie(user: CustomUser, train_time : int) -> int | float:
     :param train_time: Время тренировки
     :return: Калории, потраченные за тренировку
     """
+    validate_calculate_train_calorie(user)
     if user.fitness_level == CustomUser.FitnessLevel.LOW:
         coefficient = 0.05
     elif user.fitness_level == CustomUser.FitnessLevel.MEDIUM:
