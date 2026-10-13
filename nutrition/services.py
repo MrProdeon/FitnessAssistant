@@ -95,6 +95,7 @@ def calculate_eat(user: CustomUser, steps, train_time):
     :param train_time: Время тренировки
     :return: калории, потраченные в день с тренировкой
     """
+    validate_calculate_train_calorie(user)
     neat = calculate_neat(user, steps)
     train_calories = calculate_train_calorie(user, train_time)
     eat = neat + train_calories
