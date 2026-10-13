@@ -1,6 +1,11 @@
+from rest_framework.exceptions import ValidationError
+
 from nutrition.models import NutritionShapshot
 from users.models import CustomUser
 
+def validate_calculate_bmr(user: CustomUser):
+    if getattr(user, "lbm", None) in (None, ""):
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: lean_body_mass")
 
 def calculate_bmr(user: CustomUser):
     """
@@ -8,6 +13,7 @@ def calculate_bmr(user: CustomUser):
     :param user: Пользователь
     :return: Базовый обмен веществ пользователя
     """
+    validate_calculate_bmr(user)
     bmr = 370 + (21.6 * user.lean_body_mass)
 
     return bmr
