@@ -26,7 +26,7 @@ def validate_body_fat_fields(user: CustomUser) -> None:
     """
     missing = [f for f in get_required_fields(user) if getattr(user, f, None) in (None, "")]
     if missing:
-        raise ValidationError(f"Пропущены обязательные поля: {', '.join(missing)}")
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {', '.join(missing)}")
 
 
 def calculate_body_fat(user: CustomUser) -> float:
@@ -55,7 +55,7 @@ def validate_lean_body_mass_fields(user: CustomUser) -> None:
     required_fields = "weight", "body_fat"
     missing = [f for f in required_fields if getattr(user, f, None) in (None, "")]
     if missing:
-        raise ValidationError(f"Пропущены обязательные поля: {', '.join(missing)}")
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {', '.join(missing)}")
 
 def get_lean_body_mass(user: CustomUser) -> float:
     """
@@ -74,7 +74,7 @@ def validate_weight_class(user: CustomUser) -> None:
     required_fields = "sex", "body_fat"
     missing = [f for f in required_fields if getattr(user, f, None) in (None, "")]
     if missing:
-        raise ValidationError(f"Пропущены обязательные поля: {', '.join(missing)}")
+        raise ValidationError(f"В профиле пользователя пропущены обязательные поля: {', '.join(missing)}")
 
 
 def get_weight_class(user: CustomUser) -> str:
