@@ -4,7 +4,7 @@ from users.apps import UsersConfig
 from .views import UserListCreateAPIView, UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView, \
     BodyFatCalculateAPIView, LBMCalculateAPIView, WeightClassAPIView
 
-app_name = UsersConfig.name
+app_name = "api-" + UsersConfig.name
 
 urlpatterns = [
     path("", UserListCreateAPIView.as_view(), name="user-list-create"),

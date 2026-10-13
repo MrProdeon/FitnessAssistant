@@ -5,7 +5,7 @@ from nutrition.views import NutritionSnapshotCreateAPIView, CalculateBMRAPIView,
     CalculateStepsCaloriesAPIView, CalculateTrainCaloriesAPIView, CalculateNeatAPIView, CalculateEatAPIView, \
     CalculateCalorieNormAPIView, CalculateProteintNormAPIView, CalculateFatNormAPIView
 
-app_name = nutrition.apps.NutritionsConfig.name
+app_name = "api-" + nutrition.apps.NutritionsConfig.name
 
 urlpatterns = [
     path("get_summary/", NutritionSnapshotCreateAPIView.as_view(), name="nutrition-summary"),
