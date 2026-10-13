@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 import nutrition.apps
-from nutrition.views import NutritionSnapshotCreateAPIView, CalculateBMRAPIView, CalculateTEFAPIView, \
+from nutrition.api_views import NutritionSnapshotCreateAPIView, CalculateBMRAPIView, CalculateTEFAPIView, \
     CalculateStepsCaloriesAPIView, CalculateTrainCaloriesAPIView, CalculateNeatAPIView, CalculateEatAPIView, \
     CalculateCalorieNormAPIView, CalculateProteintNormAPIView, CalculateFatNormAPIView
 

@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from . import api_views
 from users.apps import UsersConfig
-from .views import UserListCreateAPIView, UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView, \
+from .api_views import UserListCreateAPIView, UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView, \
     BodyFatCalculateAPIView, LBMCalculateAPIView, WeightClassAPIView
 
 app_name = "api-" + UsersConfig.name
