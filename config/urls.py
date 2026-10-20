@@ -21,9 +21,11 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from config.views import HomeView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("home/", HomeView.as_view(), name="home"),
     path("users/", include("users.urls", namespace="users")),
 
     path("api/users/", include("users.api_urls", namespace="api-users")),
