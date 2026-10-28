@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Screen - Spark Admin Premium Bootstrap 5 Admin Dashboard Template</title>
+    <title>Login Screen - FitnessAssistant</title>
 
     <!-- SEO Optimization -->
     <meta name="description" content="Login Screen - Spark Admin Premium Bootstrap 5 Admin Dashboard Template">
@@ -36,10 +36,10 @@
         <!-- Brand Identity -->
         <a href="index.html" class="login-brand text-decoration-none">
             <i class="bi bi-asterisk"></i>
-            <span>Spark Admin</span>
+            <span>FitnessAssistant</span>
         </a>
 
-        <p class="login-subtitle">Please sign in to access your dashboard</p>
+        <p class="login-subtitle">Войдите в ваш профиль</p>
 
         <!-- Login Form -->
         <form method="post" id="loginForm" class="needs-validation" novalidate>
@@ -50,7 +50,7 @@
             {% endif %}
 
             <div class="login-form-group">
-                <label for="email" class="login-form-label">Email Address</label>
+                <label for="email" class="login-form-label">Электронная почта</label>
                 <div class="login-input-group">
                     <i class="bi bi-envelope input-icon"></i>
                     <input type="email" id="email" name="username" class="login-input"
@@ -59,7 +59,7 @@
             </div>
 
             <div class="login-form-group">
-                <label for="password" class="login-form-label">Password</label>
+                <label for="password" class="login-form-label">Пароль</label>
                 <div class="login-input-group">
                     <i class="bi bi-shield-lock input-icon"></i>
                     <input type="password" id="password" name="password"
@@ -74,9 +74,9 @@
             <div class="login-options">
                 <label class="custom-control-label">
                     <input type="checkbox" class="custom-checkbox-input" id="rememberMe">
-                    <span>Remember Me</span>
+                    <span>Запомнить меня</span>
                 </label>
-                <a href="#" class="forgot-password-link">Forgot Password?</a>
+                <a href="#" class="forgot-password-link">Забыли пароль?</a>
             </div>
 
             <!-- Submit Button -->
@@ -87,24 +87,9 @@
 
         </form>
 
-        <!-- Divider -->
-        <div class="login-divider">Or sign in with</div>
-
-        <!-- Social Logins -->
-        <div class="social-login-grid">
-            <button class="btn-social" type="button" id="btn-google">
-                <i class="bi bi-google text-danger"></i>
-                <span>Google</span>
-            </button>
-            <button class="btn-social" type="button" id="btn-github">
-                <i class="bi bi-github"></i>
-                <span>GitHub</span>
-            </button>
-        </div>
-
         <!-- Footer Link -->
         <p class="login-footer-text">
-            Don't have an account? <a href="#" id="link-register">Register Now</a>
+            Ещё нет профиля? <a href="#" id="link-register">Зарегистрируйтесь</a>
         </p>
 
     </div>
