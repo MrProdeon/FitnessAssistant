@@ -1,13 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from users.models import CustomUser
 
+
 # Форма регистрации
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ["email",  "phone_number", "age",
-                  "weight", "height", "neck", "waist",
-                  "sex", "hip"]
+        fields = ["email", "phone_number", "age", "sex",
+                  "weight", "height", "neck", "waist", "hip"]
         labels = {
             "email": "Электронная почта",
             "phone_number": "Номер телефона",
@@ -21,14 +21,24 @@ class CustomUserCreationForm(UserCreationForm):
         }
         help_texts = {
             "email": "Будет использоваться для входа в аккаунт.",
-            "age": "Полных лет. Нужен для расчёта обмена веществ.",
-            "weight": "Текущий вес в килограммах. Нужен для расчёта калорий и нормы белка.",
-            "height": "Рост в сантиметрах.",
-            "neck": "Измеряется под гортанью, лента горизонтально. Нужен для расчёта процента жира.",
-            "waist": "Для мужчин измеряется на уровне пупка, для женщин в самом узком месте. Нужен для расчёта процента жира.",
-            "hip": "Измеряется по самой широкой части. Нужен только женщинам для расчёта процента жира.",
-            "sex": "Нужен для точности измерений."
+            "age": "Полных лет.",
+            "weight": "Нужен для расчёта калорий и нормы белка.",
+            "height": "Нужен для расчёта обмена веществ.",
+            "neck": "Под гортанью, лента горизонтально. Для процента жира.",
+            "waist": "Мужчины: на уровне пупка. Женщины: в самом узком месте.",
+            "hip": "По самой широкой части. Нужен только женщинам.",
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password1"].label = "Пароль"
+        self.fields["password1"].help_text = "Минимум 8 символов, не только цифры."
+        self.fields["password2"].label = "Подтверждение пароля"
+        self.fields["password2"].help_text = ""
+        # стили Spark для всех полей
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "login-input"
+
 
 # Форма авторизации
 class CustomAuthenticationForm(AuthenticationForm):
