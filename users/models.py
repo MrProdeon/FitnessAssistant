@@ -44,20 +44,20 @@ class CustomUser(AbstractUser):
 
     username = None
     phone_number = models.CharField(max_length=15, verbose_name="Номер телефона", blank=True)
-    email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
+    email = models.EmailField(max_length=100, unique=True, blank=False, null=False, verbose_name="Электронная почта")
 
-    age = models.PositiveIntegerField(blank=True, null=True)
-    weight = models.FloatField(blank=True, null=True)
-    height = models.FloatField(blank=True, null=True)
-    neck = models.FloatField(blank=True, null=True)
-    waist = models.FloatField(blank=True, null=True)
-    sex = models.CharField(max_length=6, choices=Sex.choices)
-    hip = models.FloatField(blank=True, null=True)
+    age = models.PositiveIntegerField(blank=True, null=True, verbose_name="Возраст")
+    weight = models.FloatField(blank=True, null=True, verbose_name="Вес")
+    height = models.FloatField(blank=True, null=True, verbose_name="Рост")
+    neck = models.FloatField(blank=True, null=True, verbose_name="Обхват шеи(см)")
+    waist = models.FloatField(blank=True, null=True, verbose_name="Обхват талии(см)")
+    sex = models.CharField(max_length=6, choices=Sex.choices, verbose_name="Пол")
+    hip = models.FloatField(blank=True, null=True, verbose_name="Обхват бёдер(см)")
 
-    body_fat = models.FloatField(blank=True, null=True)
-    lean_body_mass = models.FloatField(blank=True, null=True)
-    weight_class = models.CharField(blank=True, null=True, choices=WeightClass.choices)
-    fitness_level = models.CharField(blank=True, null=True, choices=FitnessLevel.choices)
+    body_fat = models.FloatField(blank=True, null=True, verbose_name="Процент жира")
+    lean_body_mass = models.FloatField(blank=True, null=True, verbose_name="Обезжиренная масса тела")
+    weight_class = models.CharField(blank=True, null=True, choices=WeightClass.choices, verbose_name="Весовая категория")
+    fitness_level = models.CharField(blank=True, null=True, choices=FitnessLevel.choices, verbose_name="Уровень физ.подготовки")
 
     objects = CustomUserManager()
 
