@@ -245,9 +245,17 @@
                     </li>
                 </ul>
             </div>
-            {% elif not user.is_authenticated %}
-            <a href="{% url 'users:login' %}"><h1>Вход</h1></a>
-            <a href="{% url 'users:register' %}"><h1>Регистрация</h1></a>
+            {% else %}
+            <div class="d-flex align-items-center gap-2 ms-2">
+                <a href="{% url 'users:login' %}" class="btn-custom btn-custom-outline-primary">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Войти</span>
+                </a>
+                <a href="{% url 'users:register' %}" class="btn-custom btn-custom-secondary">
+                    <i class="bi bi-person-plus"></i>
+                    <span>Регистрация</span>
+                </a>
+            </div>
             {% endif %}
         </div>
     </header>
