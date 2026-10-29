@@ -1,0 +1,26 @@
+{% load l10n %}
+{# Одна строка профиля. Параметры: label, field, value, display, unit, hint #}
+<div class="d-flex align-items-center justify-content-between gap-3 py-3 border-bottom">
+    <div>
+        <div class="small text-muted">{{ label }}</div>
+        {% if display %}
+            <div class="fw-bold fs-6">{{ display }}{% if unit %} {{ unit }}{% endif %}</div>
+        {% else %}
+            <div class="text-muted fst-italic">Данные не указаны</div>
+        {% endif %}
+    </div>
+
+    <button type="button"
+            class="btn-custom btn-custom-sm {% if display %}btn-custom-light{% else %}btn-custom-primary{% endif %}"
+            data-bs-toggle="modal"
+            data-bs-target="#editFieldModal"
+            data-field="{{ field }}"
+            data-label="{{ label }}"
+            data-unit="{{ unit }}"
+            data-hint="{{ hint }}"
+            data-value="{{ value|unlocalize }}"
+            data-mode="{% if display %}Изменить{% else %}Указать{% endif %}">
+        <i class="bi {% if display %}bi-pencil{% else %}bi-plus-lg{% endif %}"></i>
+        <span>{% if display %}Изменить{% else %}Указать{% endif %}</span>
+    </button>
+</div>

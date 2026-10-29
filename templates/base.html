@@ -264,7 +264,9 @@
     <!-- ==========================================
        END: Main Content Area
        ========================================== -->
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
 
     <!-- Local Third-Party Libraries Script dependencies -->
     <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -273,6 +275,8 @@
 
     <!-- Local dashboard interactions controller -->
     <script src="{% static 'js/dashboard.js' %}"></script>
+
+
 </body>
 
 </html>
