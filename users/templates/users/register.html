@@ -1,86 +1,11 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация - FitnesAssistant</title>
+<!-- register.html -->
+{% extends "base.html" %}
 
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/bootstrap-icons/bootstrap-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-</head>
-<body>
-
-    <div class="login-wrapper">
-        <div class="login-bg-shape login-bg-shape-1"></div>
-        <div class="login-bg-shape login-bg-shape-2"></div>
-
-        <div class="login-card">
-
-            <a href="{% url 'home' %}" class="login-brand text-decoration-none">
-                <i class="bi bi-asterisk"></i>
-                <span>FitnesAssistant</span>
-            </a>
-
-            <p class="login-subtitle">Создайте аккаунт, чтобы рассчитать свои нормы питания</p>
-
-            <form method="post" novalidate>
-                {% csrf_token %}
-
-                {% if form.non_field_errors %}
-                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-                {% endif %}
-
-                {% include "users/_field.html" with field=form.email icon="bi-envelope" %}
-                {% include "users/_field.html" with field=form.phone_number icon="bi-telephone" %}
-
-                <div class="row">
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.age icon="bi-calendar3" %}
-                    </div>
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.sex icon="bi-gender-ambiguous" %}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.weight icon="bi-speedometer2" %}
-                    </div>
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.height icon="bi-rulers" %}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.neck icon="bi-rulers" %}
-                    </div>
-                    <div class="col-6">
-                        {% include "users/_field.html" with field=form.waist icon="bi-rulers" %}
-                    </div>
-                </div>
-
-                {% include "users/_field.html" with field=form.hip icon="bi-rulers" %}
-
-                {% include "users/_field.html" with field=form.password1 icon="bi-shield-lock" %}
-                {% include "users/_field.html" with field=form.password2 icon="bi-shield-check" %}
-
-                <button type="submit" class="btn-login">
-                    <span>Зарегистрироваться</span>
-                    <i class="bi bi-arrow-right"></i>
-                </button>
-            </form>
-
-            <p class="login-footer-text">
-                Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти</a>
-            </p>
-
-        </div>
-    </div>
-
-    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-</body>
-</html>
+{% block content %}
+  <h2>Регистрация</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+{% endblock %}
