@@ -28,7 +28,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("home/", HomeView.as_view(), name="home"),
     path("users/", include("users.urls", namespace="users")),
-    path("index/", TemplateView.as_view(template_name="index.html"), name="index"),
 
     path("api/users/", include("users.api_urls", namespace="api-users")),
     path("api/nutrition/", include("nutrition.api_urls", namespace="api-nutrition")),
