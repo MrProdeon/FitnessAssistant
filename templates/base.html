@@ -1,282 +1,105 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spark Admin - Premium Bootstrap 5 Admin Dashboard Template</title>
-    <title>{% block title %}Мой сайт{% endblock %}</title>
-    <!-- SEO Optimization -->
-    <meta name="description" content="Spark Admin - Premium Bootstrap 5 Admin Dashboard Template">
-    <meta name="author" content="Spark Admin Team">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
-
-    <!-- Local Third-Party Libraries (100% Offline Compatible) -->
-    <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/bootstrap-icons/bootstrap-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/apexcharts/apexcharts.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
-
-    <!-- Main Design System & Custom Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>{% block title %}FitnessAssistant{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
-
 <body>
 
-<!-- ==========================================
-       START: Sidebar Component
-       Highly polished, dark-green sticky navigation
-       ========================================== -->
-<div class="sidebar-wrapper" id="sidebar">
-    <!-- Brand Logo / Identity -->
-    <a href="{% url 'home' %}" class="sidebar-brand">
-        <i class="bi bi-asterisk"></i>
-        <span>FitnessAssistant</span>
-    </a>
+{% with current=request.resolver_match.view_name %}
+<div class="app">
 
-    <!-- Navigation Menu -->
-    <div class="flex-grow-1 overflow-y-auto">
-        <!-- Group: Menu -->
-        <div class="sidebar-menu-section">
-            <div class="sidebar-menu-title">Menu</div>
-            <ul class="sidebar-menu-list">
-                <li class="sidebar-menu-item">
-                    <a href="index.html" class="sidebar-menu-link active" id="menu-overview" title="Overview">
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Сводка</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <!-- ========== Боковое меню ========== -->
+    <aside class="sidebar">
+        <a href="{% url 'home' %}" class="brand">
+            <!-- Логотип-заглушка. Чтобы поставить свой: положи картинку в static/images/ и замени <svg> на <img> -->
+            <svg class="brand__logo" width="36" height="36" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M16 2 4 6v9c0 7 5 12 12 15 7-3 12-8 12-15V6z" fill="#2a6ee0"/>
+                <polyline points="9 21 14 16 17 19 23 12" fill="none" stroke="#f47b20" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="19 12 23 12 23 16" fill="none" stroke="#f47b20" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="brand__name">Fitness<b>Assistant</b></span>
+        </a>
 
-        <!-- Group: Components -->
-        <div class="sidebar-menu-section">
-            <div class="sidebar-menu-title">Components</div>
-            <ul class="sidebar-menu-list">
-                <li class="sidebar-menu-item">
-                    <a href="tables-basic.html" class="sidebar-menu-link" id="menu-basictables" title="Basic Tables">
-                        <i class="bi bi-table"></i>
-                        <span>Калькуляторы</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a href="ui-forms.html" class="sidebar-menu-link" id="menu-uiforms" title="Forms and Input">
-                        <i class="bi bi-input-cursor-text"></i>
-                        <span>Тренировки</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a href="ui-buttons.html" class="sidebar-menu-link" id="menu-uibuttons" title="Buttons">
-                        <i class="bi bi-menu-button-wide-fill"></i>
-                        <span>Блог</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <nav class="nav" aria-label="Основное меню">
+            <a href="{% url 'home' %}" class="nav__link {% if current == 'home' %}is-active{% endif %}">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Главная</span>
+            </a>
 
-        <!-- Group: Pages -->
-        <div class="sidebar-menu-section">
-            <div class="sidebar-menu-title">Pages</div>
-            <ul class="sidebar-menu-list">
-                <li class="sidebar-menu-item">
-                    <a href="page-blank.html" class="sidebar-menu-link" id="menu-blankpage" title="Blank Page">
-                        <i class="bi bi-file-earmark"></i>
-                        <span>Blank Page</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a href="page-login.html" class="sidebar-menu-link" id="menu-loginpage" title="Login Page">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        <span>Login Screen</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a href="page-404.html" class="sidebar-menu-link" id="menu-404" title="404 Page">
-                        <i class="bi bi-slash-circle"></i>
-                        <span>Error 404</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+            {# Когда появятся страницы, замени href="#" на {% url 'имя_урла' %} #}
+            {# Подсветка активной вкладки сработает, если имя урла совпадёт с тем, что в условии (calculators, workouts, blog) #}
+            <a href="#" class="nav__link {% if current == 'calculators' %}is-active{% endif %}">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                <span>Калькуляторы</span>
+            </a>
 
-    <!-- Sidebar Profile Card (Dynamic Footer) -->
-    <div class="sidebar-profile">
-        <img src="{% static 'images/avatar.png' %}" alt="Administrator" class="sidebar-profile-img"
-             onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop'">
-        <div class="sidebar-profile-info">
-            <div class="sidebar-profile-name">Administrator</div>
-            <div class="sidebar-profile-email">admin@email.com</div>
-        </div>
-    </div>
-</div>
-<!-- ==========================================
-       END: Sidebar Component
-       ========================================== -->
+            <a href="#" class="nav__link {% if current == 'workouts' %}is-active{% endif %}">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg>
+                <span>Тренировки</span>
+            </a>
 
+            <a href="#" class="nav__link {% if current == 'blog' %}is-active{% endif %}">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <span>Блог</span>
+            </a>
+        </nav>
+    </aside>
 
-<!-- ==========================================
-       START: Main Content Area
-       ========================================== -->
-<div class="main-wrapper">
+    <!-- ========== Правая часть ========== -->
+    <div class="main">
 
-    <!-- START: Top Navbar Component -->
-    <header class="navbar-custom">
-        <div class="navbar-left">
-            <!-- Desktop sidebar toggle (visible on large screens only) -->
-            <button class="btn-desktop-toggle d-none d-xl-flex align-items-center justify-content-center me-3"
-                    id="desktop-sidebar-toggle" aria-label="Minimize Sidebar">
-                <i class="bi bi-chevron-bar-left"></i>
-            </button>
-            <!-- Mobile sidebar toggle -->
-            <button class="sidebar-toggle-btn me-2" id="sidebar-toggle" aria-label="Toggle Navigation">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <!-- Quick Actions Dropdown -->
-            <div class="dropdown ms-2">
-                <button class="btn-quick-action dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        id="quick-actions-dropdown">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>Create</span>
+        <header class="topbar">
+            <div class="user-menu">
+                <button type="button" class="user-menu__button" aria-label="Меню пользователя" aria-haspopup="true" aria-expanded="false">
+                    <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-quick-action" aria-labelledby="quick-actions-dropdown">
-                    <li class="dropdown-header">Quick Action Shortcuts</li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-plus"></i> New Invoice</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-person-plus"></i> New User</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> New Product</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> System Settings</a></li>
-                </ul>
-            </div>
-        </div>
 
-        <!-- Mid navbar: search pill -->
-        <div class="navbar-search-wrapper">
-            <input type="text" class="navbar-search-input" placeholder="Search anything in Spark..." id="main-search">
-            <button class="navbar-search-btn" aria-label="Search">
-                <i class="bi bi-search"></i>
-            </button>
-        </div>
-
-        <!-- Right actions -->
-        <div class="navbar-actions">
-            <!-- Fullscreen Toggle -->
-            <button class="navbar-action-btn me-1" aria-label="Toggle Fullscreen" id="btn-fullscreen">
-                <i class="bi bi-arrows-fullscreen"></i>
-            </button>
-            <div class="dropdown">
-                <button class="navbar-action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" id="btn-notifications" data-bs-auto-close="outside">
-                    <i class="bi bi-bell"></i>
-                    <span class="navbar-action-badge"></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-notification p-0"
-                     aria-labelledby="btn-notifications">
-                    <div class="notification-header">
-                        <h6 class="notification-title">Notifications</h6>
-                        <button class="btn-clear-all" type="button">Mark all read</button>
-                    </div>
-                    <div class="notification-list">
-                        <!-- Sale Notification -->
-                        <a href="#" class="notification-item">
-                            <div class="notification-icon bg-success text-white">
-                                <i class="bi bi-wallet2"></i>
-                            </div>
-                            <div class="notification-content">
-                                <p class="notification-text">New sale received: <strong>$150.00</strong></p>
-                                <span class="notification-time">2 mins ago</span>
-                            </div>
-                            <span class="notification-unread-dot"></span>
-                        </a>
-                        <!-- User Registration Notification -->
-                        <a href="#" class="notification-item">
-                            <div class="notification-icon bg-primary text-white">
-                                <i class="bi bi-person-plus-fill"></i>
-                            </div>
-                            <div class="notification-content">
-                                <p class="notification-text">New user registered: <strong>John Doe</strong></p>
-                                <span class="notification-time">1 hour ago</span>
-                            </div>
-                            <span class="notification-unread-dot"></span>
-                        </a>
-                        <!-- Low Stock Notification -->
-                        <a href="#" class="notification-item">
-                            <div class="notification-icon bg-warning text-dark">
-                                <i class="bi bi-box-seam-fill"></i>
-                            </div>
-                            <div class="notification-content">
-                                <p class="notification-text">Stock running low: <strong>Hoodie</strong></p>
-                                <span class="notification-time">3 hours ago</span>
-                            </div>
-                        </a>
-                    </div>
-                    <a href="#" class="notification-footer">View All Notifications</a>
-                </div>
-            </div>
-
-            <!-- Profile Dropdown -->
-            {% if user.is_authenticated %}
-            <div class="dropdown ms-2">
-                <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" id="profile-dropdown">
-                    <img src="{% static 'images/avatar.png' %}" alt="Profile Image" class="navbar-profile-img">
-                    <span class="navbar-profile-name d-none d-md-inline">Профиль</span>
-                    <i class="bi bi-chevron-down navbar-profile-caret"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile" aria-labelledby="profile-dropdown">
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Мой профиль</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
+                <div class="user-menu__dropdown" role="menu">
+                    {% if user.is_authenticated %}
+                        <div class="user-menu__email">{{ user.email }}</div>
                         <form method="post" action="{% url 'users:logout' %}">
                             {% csrf_token %}
-                            <button type="submit" class="dropdown-item text-danger">
-                                <i class="bi bi-box-arrow-right"></i> Logout
+                            <button type="submit" class="user-menu__item user-menu__item--danger" role="menuitem">
+                                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                                Выйти
                             </button>
                         </form>
-                    </li>
-                </ul>
+                    {% else %}
+                        <a href="{% url 'users:login' %}" class="user-menu__item" role="menuitem">
+                            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                            Войти
+                        </a>
+                        <a href="{% url 'users:register' %}" class="user-menu__item" role="menuitem">
+                            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                            Регистрация
+                        </a>
+                    {% endif %}
+                </div>
             </div>
-            {% else %}
-            <div class="d-flex align-items-center gap-2 ms-2">
-                <a href="{% url 'users:login' %}" class="btn-custom btn-custom-outline-primary">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Войти</span>
-                </a>
-                <a href="{% url 'users:register' %}" class="btn-custom btn-custom-secondary">
-                    <i class="bi bi-person-plus"></i>
-                    <span>Регистрация</span>
-                </a>
-            </div>
+        </header>
+
+        <main class="content">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message message--{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
             {% endif %}
-        </div>
-    </header>
-    <!-- END: Top Navbar Component -->
 
-    <!-- ==========================================
-       END: Main Content Area
-       ========================================== -->
-    {% block content %}
+            {% block content %}{% endblock %}
+        </main>
 
-    {% endblock %}
+    </div>
+</div>
+{% endwith %}
 
-    <!-- Local Third-Party Libraries Script dependencies -->
-    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
-    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
-
-    <!-- Local dashboard interactions controller -->
-    <script src="{% static 'js/dashboard.js' %}"></script>
-
-
+<script src="{% static 'js/base.js' %}"></script>
+{% block extra_js %}{% endblock %}
 </body>
-
 </html>
