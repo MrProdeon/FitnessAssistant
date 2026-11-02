@@ -27,6 +27,10 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    PROFILE_FIELDS = [
+        "age", "sex", "weight", "height", "neck", "waist", "hip",
+        "body_fat", "lean_body_mass", "weight_class", "fitness_level",
+    ]
 
     class Sex(models.TextChoices):
         MALE = "male", "Male"
