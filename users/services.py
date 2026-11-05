@@ -46,7 +46,12 @@ def calculate_body_fat(user: CustomUser) -> float:
 
     body_fat = 495 / inner - 450
 
-    return body_fat
+    return round(body_fat, 2)
+
+def update_bodyfat(user):
+    user.body_fat = calculate_body_fat(user)
+    user.save(update_fields=["body_fat"])
+    return user.body_fat
 
 
 #Lean Body Mass
@@ -67,6 +72,12 @@ def get_lean_body_mass(user: CustomUser) -> float:
     lean_body_mass = user.weight * (1 - user.body_fat / 100)
 
     return lean_body_mass
+
+def update_lean_body_mass(user):
+    user.lean_body_mass = get_lean_body_mass(user)
+    user.save(update_fields=["lean_body_mass"])
+    return user.lean_body_mass
+
 
 # weight class
 
@@ -105,5 +116,8 @@ def get_weight_class(user: CustomUser) -> str:
 
     return weight_class
 
-
+def update_weight_class(user):
+    user.weight_class = get_weight_class(user)
+    user.save(update_fields=["weight_class"])
+    return user.weight_class
 
