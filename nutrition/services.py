@@ -4,7 +4,7 @@ from nutrition.models import NutritionShapshot
 from users.models import CustomUser
 
 def validate_calculate_bmr(user: CustomUser):
-    if getattr(user, "lbm", None) in (None, ""):
+    if getattr(user, "lean_body_mass", None) in (None, ""):
         raise ValidationError(f"В профиле пользователя пропущены обязательные поля: lean_body_mass")
 
 def validate_calculate_calories_per_1000_steps(user: CustomUser):
