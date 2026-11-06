@@ -28,7 +28,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("home/", HomeView.as_view(), name="home"),
     path("users/", include("users.urls", namespace="users")),
-    path("calculators/", TemplateView.as_view(template_name="calculators.html"), name="calculators"),
+    path("body_calculators/", TemplateView.as_view(template_name="body_calculators.html"), name="body-calculators"),
+    path("nutrition_calculators/", TemplateView.as_view(template_name="nutrition_calculators.html"), name="nutrition-calculators"),
+    path("nutrition/", include("nutrition.urls", namespace="nutrition")),
 
     path("api/users/", include("users.api_urls", namespace="api-users")),
     path("api/nutrition/", include("nutrition.api_urls", namespace="api-nutrition")),
