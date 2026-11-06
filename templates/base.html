@@ -33,9 +33,13 @@
 
             {# Когда появятся страницы, замени href="#" на {% url 'имя_урла' %} #}
             {# Подсветка активной вкладки сработает, если имя урла совпадёт с тем, что в условии (calculators, workouts, blog) #}
-            <a href="{% url 'calculators' %}" class="nav__link {% if current == 'calculators' %}is-active{% endif %}">
+            <a href="{% url 'body-calculators' %}" class="nav__link {% if current == 'body-calculators' %}is-active{% endif %}">
                 <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
-                <span>Калькуляторы</span>
+                <span>Калькуляторы тела</span>
+            </a>
+            <a href="{% url 'nutrition-calculators' %}" class="nav__link {% if current == 'nutrition-calculators' %}is-active{% endif %}">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                <span>Калькуляторы питания</span>
             </a>
 
             <a href="#" class="nav__link {% if current == 'workouts' %}is-active{% endif %}">
