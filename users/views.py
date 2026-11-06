@@ -51,7 +51,7 @@ class CalculateBodyFatView(LoginRequiredMixin, View):
             messages.error(request, str(e))
         else:
             messages.success(request, f"Процент жира: {body_fat}")
-        return redirect("calculators")
+        return redirect("body-calculators")
 
 class CalculateLBMView(LoginRequiredMixin, View):
 
@@ -62,7 +62,7 @@ class CalculateLBMView(LoginRequiredMixin, View):
             messages.error(request, str(e))
         else:
             messages.success(request, f"Обезжиренная масса тела : {lbm}")
-        return redirect("calculators")
+        return redirect("body-calculators")
 
 class CalculateWeightClassView(LoginRequiredMixin, View):
 
@@ -73,4 +73,4 @@ class CalculateWeightClassView(LoginRequiredMixin, View):
             messages.error(request, str(e))
         else:
             messages.success(request, f"Весовая категория: {weight_class}")
-        return redirect("calculators")
+        return redirect("body-calculators")
