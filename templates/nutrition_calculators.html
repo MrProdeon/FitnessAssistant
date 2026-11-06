@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Калькуляторы{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Калькуляторы</h1>
+    <p class="page-subtitle">Рассчитайте показатели на основе данных вашего профиля.</p>
+</div>
+
+<article class="profile-tile">
+    <div class="profile-tile__label">Процент жира в теле</div>
+
+    <div class="profile-tile__body">
+        {% if user.body_fat %}
+        <div class="profile-tile__value">{{ user.body_fat|floatformat:1 }}<span class="profile-tile__unit">%</span>
+        </div>
+        {% else %}
+        <div class="profile-tile__empty">Ещё не рассчитан</div>
+        {% endif %}
+    </div>
+
+    <form method="post" action="{% url 'nutrition:nutrition-summary' %}">
+        {% csrf_token %}
+        <input type="number" name="steps">
+        <input type="number" name="train_time">
+        <input  name="goal">
+        <button type="submit" class="btn btn--sm">Рассчитать</button>
+    </form>
+</article>
+{% endblock %}
